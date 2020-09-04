@@ -7,7 +7,7 @@ inputs:
   revision:
     description: 'Revision number'
     required: false
-    default: ${{GITHUB_RUN_ID}}
+    default: ${{env.GITHUB_RUN_ID}}
   build:
     description: 'BuildNumber'
     required: false
