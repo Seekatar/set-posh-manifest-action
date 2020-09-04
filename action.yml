@@ -22,7 +22,8 @@ inputs:
     default: -1
 runs:
   using: 'composite'
-    -run: gci env:
+    -run: |
+        gci env:
       shell: pwsh
     - run: ${{ github.action_path }}/Update-ManifestVersion.ps1 (Join-Path $env:GITHUB_WORKSPACE $env:INPUT_MANIFEST-PATH) INPUT_BUILD -Verbose
       shell: pwsh
