@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Test
-        uses: seekatar/set-posh-manifest-action
+        uses: seekatar/set-posh-manifest-action@main
         with:
             manifest-path: test.blah
             revision: 123
