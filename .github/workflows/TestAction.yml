@@ -27,6 +27,7 @@ jobs:
         with:
             manifest-path: test.blah
             revision: 123
+            major: 1
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
