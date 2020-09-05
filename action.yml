@@ -4,11 +4,7 @@ inputs:
   manifest-path:
     description: 'Relative path to manifest'
     required: true
-  revision:
-    description: 'Revision number'
-    required: false
-    default: ''
-  build:
+  major:
     description: 'BuildNumber'
     required: false
     default: -1
@@ -16,8 +12,12 @@ inputs:
     description: 'BuildNumber'
     required: false
     default: -1
-  major:
+  build:
     description: 'BuildNumber'
+    required: false
+    default: -1
+  revision:
+    description: 'Revsion'
     required: false
     default: -1
 runs:
@@ -26,5 +26,12 @@ runs:
     - run: |
         gci env:
       shell: pwsh
-    - run: ${{ github.action_path }}/Update-ManifestVersion.ps1 (Join-Path $env:GITHUB_WORKSPACE ${{ inputs.manifest-path }}) ${{ inputs.build }} -Verbose
+    - run: |
+        ${{ github.action_path }}/Update-ManifestVersion.ps1 `
+            -ManifestPath (Join-Path $env:GITHUB_WORKSPACE ${{ inputs.manifest-path }}) `
+            -Major ${{ inputs.major }} `
+            -Minor ${{ inputs.minor }} `
+            -Build ${{ inputs.build }} `
+            -Revision ${{ inputs.revision }} `
+            -Verbose
       shell: pwsh

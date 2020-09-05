@@ -26,7 +26,8 @@ jobs:
         uses: seekatar/set-posh-manifest-action@main
         with:
             manifest-path: test.blah
-            revision: 123
+            patch: ${{ env.GITHUB_RUN_NUMBER }}
+            minor: 2
             major: 1
 
       # Runs a single command using the runners shell
