@@ -30,21 +30,21 @@ jobs:
       #       minor: 5
       #       major: ${{ github.run_number }}
 
-      - name: pester tests
-        id: test_module
-        uses: zyborg/pester-tests-report@v1.1.0
-        with:
-          include_paths: tests
-          report_name: set-posh-manifest-action
-          report_title: set-posh-manifest-action
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: pester tests
+      #   id: test_module
+      #   uses: zyborg/pester-tests-report@v1.1.0
+      #   with:
+      #     include_paths: tests
+      #     report_name: set-posh-manifest-action
+      #     report_title: set-posh-manifest-action
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: dump test results
-        shell: pwsh
-        run: |
-          Write-Host 'Total Tests Executed...:  ${{ steps.test_module.outputs.total_count }}'
-          Write-Host 'Total Tests PASSED.....:  ${{ steps.test_module.outputs.passed_count }}'
-          Write-Host 'Total Tests FAILED.....:  ${{ steps.test_module.outputs.failed_count }}'
+      # - name: dump test results
+      #   shell: pwsh
+      #   run: |
+      #     Write-Host 'Total Tests Executed...:  ${{ steps.test_module.outputs.total_count }}'
+      #     Write-Host 'Total Tests PASSED.....:  ${{ steps.test_module.outputs.passed_count }}'
+      #     Write-Host 'Total Tests FAILED.....:  ${{ steps.test_module.outputs.failed_count }}'
 
       # Runs a single command using the runners shell
       # For pwsh this prints ${GITHUB_RUN_NUMBER}
