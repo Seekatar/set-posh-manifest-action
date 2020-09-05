@@ -34,6 +34,7 @@ param(
 
 Set-StrictMode -Version Latest
 $manifest = Test-ModuleManifest -Path $ManifestPath -Verbose:$false
+Write-Warning (gc $ManifestPath -Raw)
 Write-Warning "Got manifest version from file of $($manifest.Version)"
 Write-Warning (gc $ManifestPath -Raw)
 
