@@ -22,13 +22,13 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Test
-        uses: seekatar/set-posh-manifest-action@main
-        with:
-            manifest-path: tests/test.psd1
-            build: ${{ github.run_id }}
-            minor: 5
-            major: ${{ github.run_number }}
+      # - name: Test
+      #   uses: seekatar/set-posh-manifest-action@main
+      #   with:
+      #       manifest-path: tests/test.psd1
+      #       build: ${{ github.run_id }}
+      #       minor: 5
+      #       major: ${{ github.run_number }}
 
       # - name: pester tests
       #   id: test_module
