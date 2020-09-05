@@ -34,6 +34,7 @@ param(
 
 Set-StrictMode -Version Latest
 $manifest = Test-ModuleManifest -Path $ManifestPath -Verbose:$false
+Write-Warning "Got manifest version from file of $($manifest.Version)"
 
 $verFormat = "{0}.{1}.{2}.{3}"
 if ( $Revision -eq -1 )
@@ -62,6 +63,7 @@ if ( $Major -eq -1 )
     $Major = $manifest.Version.Major
 }
 $newVersion = $verformat -f $Major, $Minor, $Build, $Revision
+Write-Warning "Setting new version $($newVersion)"
 
 if ( $PSCmdlet.ShouldProcess($ManifestPath, "Set module version to $newVersion"))
 {
