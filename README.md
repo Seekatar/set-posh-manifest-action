@@ -1,7 +1,7 @@
 # set-posh-manifest-action
 This GitHub Action willset the version in a PowerShell module manifest file. The `[Version](https://docs.microsoft.com/en-us/dotnet/api/system.version?view=netcore-3.1)` object in the manifest should three levels to be in line with [semantic versioning](https://semver.org/). Typically this action would just set the Build number (Patch in semantic terms).
 
-![Status](https://github.com/Seekatar/set-posh-manifest-action/workflows/CI/badge.svg)
+![Status](https://github.com/Seekatar/set-posh-manifest-action/workflows/PesterTest/badge.svg)
 
 ## Using set-posh-manifest-action
 
