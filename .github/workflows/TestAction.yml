@@ -26,9 +26,9 @@ jobs:
         uses: seekatar/set-posh-manifest-action@main
         with:
             manifest-path: test.psd1
-            build: ${{ env.GITHUB_RUN_NUMBER }}
+            build: ${GITHUB_RUN_NUMBER}
             minor: 2
-            major: 1
+            major: ${{ github.run_id }}
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
