@@ -5,19 +5,19 @@ inputs:
     description: 'Relative path to manifest'
     required: true
   major:
-    description: 'BuildNumber'
+    description: 'Major Version'
     required: false
     default: -1
   minor:
-    description: 'BuildNumber'
+    description: 'Minor Version'
     required: false
     default: -1
   build:
-    description: 'BuildNumber'
+    description: 'Build Number'
     required: false
     default: -1
   revision:
-    description: 'Revsion'
+    description: 'Optional Revsion Number'
     required: false
     default: -1
 runs:
@@ -27,6 +27,7 @@ runs:
         gci env:
       shell: pwsh
     - run: |
+        echo "Build is ${{ inputs.build }}"
         ${{ github.action_path }}/Update-ManifestVersion.ps1 `
             -ManifestPath (Join-Path $env:GITHUB_WORKSPACE ${{ inputs.manifest-path }}) `
             -Major ${{ inputs.major }} `
