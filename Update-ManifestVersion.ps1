@@ -70,4 +70,5 @@ if ( $PSCmdlet.ShouldProcess($ManifestPath, "Set module version to $newVersion")
     $temp = New-TemporaryFile
     Get-Content $ManifestPath | ForEach-Object { $_.TrimEnd(); } | Out-File -Append -FilePath $temp -Encoding utf8
     Copy-Item $temp $ManifestPath
+    Remove-Item $temp
 }

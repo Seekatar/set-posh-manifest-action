@@ -36,3 +36,7 @@ runs:
             -Revision ${{ inputs.revision }} `
             -Verbose
       shell: pwsh
+
+branding:
+  icon: 'terminal'
+  color: 'blue'
