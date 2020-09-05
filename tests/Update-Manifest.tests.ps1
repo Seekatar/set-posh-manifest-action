@@ -58,8 +58,17 @@ Describe "Tests Manifest Version" {
 
         ..\Update-ManifestVersion.ps1 -ManifestPath $temp -Build 99
 
-        Write-Warning "$($manifest.Version) $([Version]"0.1.99")"
         $manifest = Test-ModuleManifest -Path $temp -Verbose:$false
         $manifest.Version | Should -be ([Version]"0.1.99")
+    }
+    It "Sets only build" {
+
+        $temp = "$(New-TemporaryFile).psd1"
+        Copy-Item .\test.psd1 $temp
+
+        ..\Update-ManifestVersion.ps1 -ManifestPath $temp -Build 99
+
+        $manifest = Test-ModuleManifest -Path $temp -Verbose:$false
+        $manifest.Version | Should -be ([Version]"0.1.299")
     }
 }
