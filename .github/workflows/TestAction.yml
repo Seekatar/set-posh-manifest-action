@@ -30,7 +30,7 @@ jobs:
         run: |
           if (!(Get-Module Pester)) { Install-Module Pester -Confirm:$False -Force }
           $result = Invoke-Pester -PassThru
-          $result.Tests | Select @{n="Ok";e={if ($_.Result -ne 'Passed') {'[-]'}else {'[+]'}}},Name | Sort Ok -Desc | Format-Table -Auto
+          $result.Tests | Select @{n="Ok";e={if ($_.Result -ne 'Passed') {'[-]'}else {'[+]'}}},Name | Sort-Object Ok -Desc | Format-Table -Auto
           if ($result.Result -ne "Passed") {
             Write-Error "Pester tests failed"
           }
