@@ -11,6 +11,7 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
+      fail-fast: false
 
     runs-on: ${{matrix.os}}
 
@@ -20,14 +21,16 @@ jobs:
       - name: Run Script Analyzer
         shell: pwsh
         run: |
+          $progressPreference = "silentlyContinue"
           if ( -not (Get-Module -Name PSScriptAnalyzer ) ) { Install-Module -Name PSScriptAnalyzer -Scope CurrentUser -Force -Confirm:$false -SkipPublisherCheck }
           $results = Invoke-ScriptAnalyzer -Path .
           $results
-          if ($results | ? Severity -eq Error ) { Write-Error "Analyzer detected errors." }
+          if ($results | ? Severity -eq Error ) { Write-Error "Analyzer detected errors." } else { "No analyzer errors" }
 
       - name: Run Pester Tests
         shell: pwsh
         run: |
+          $progressPreference = "silentlyContinue"
           if (!(Get-Module Pester)) { Install-Module Pester -Confirm:$False -Force }
           $result = Invoke-Pester -PassThru
           $result.Tests | Select @{n="Ok";e={if ($_.Result -ne 'Passed') {'[-]'}else {'[+]'}}},Name | Sort-Object Ok -Desc | Format-Table -Auto
