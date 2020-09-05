@@ -25,8 +25,8 @@ jobs:
       - name: Test
         uses: seekatar/set-posh-manifest-action@main
         with:
-            manifest-path: test.blah
-            patch: ${{ env.GITHUB_RUN_NUMBER }}
+            manifest-path: test.psd1
+            build: ${{ env.GITHUB_RUN_NUMBER }}
             minor: 2
             major: 1
 
