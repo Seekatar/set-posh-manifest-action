@@ -1,19 +1,20 @@
 name: 'Set PowerShell Manifest Version'
 description: 'Set the version number in a PowerShell module''s manifest file'
+author: Seekatar
 inputs:
   manifest-path:
     description: 'Relative path to manifest'
     required: true
   major:
-    description: 'Major Version'
+    description: 'Major Version, defaults to value in manifest'
     required: false
     default: -1
   minor:
-    description: 'Minor Version'
+    description: 'Minor Version, defaults to value in manifest'
     required: false
     default: -1
   build:
-    description: 'Build Number'
+    description: 'Build Number, usually use ${{ github.run_number }}'
     required: false
     default: -1
   revision:
@@ -23,9 +24,6 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - run: |
-        gci env:
-      shell: pwsh
     - run: |
         echo "Build is ${{ inputs.build }}"
         ${{ github.action_path }}/Update-ManifestVersion.ps1 `
