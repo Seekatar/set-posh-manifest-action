@@ -14,7 +14,7 @@ inputs:
     required: false
     default: -1
   build:
-    description: 'Build Number, usually use ${{ github.run_number }}'
+    description: 'Build Number, usually use github.run_number'
     required: false
     default: -1
   revision:
