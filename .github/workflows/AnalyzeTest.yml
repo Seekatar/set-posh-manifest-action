@@ -36,17 +36,8 @@ jobs:
           $result = Invoke-Pester -Configuration @{
                                                     Output = @{Verbosity='Detailed'}
                                                     Run = @{PassThru=$true}
-                                                    CodeCoverage=@{Enabled=$true;Path='../Update-ManifestVersion.ps1'}
                                                   }
           $result.tests | select name,result
           if ($result.Result -ne "Passed") {
             Write-Error "Pester tests failed"
           }
-
-      - name: Upload to CodeCov
-        shell: bash
-        working-directory: tests/unit
-        run: |
-          export CODECOV_TOKEN="${{ secrets.CODECOV }}"
-          bash <(curl -s https://codecov.io/bash)
-        if: ${{ matrix.os == 'ubuntu-latest'}}

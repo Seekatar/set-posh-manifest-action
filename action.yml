@@ -8,19 +8,27 @@ inputs:
   major:
     description: 'Major Version, defaults to value in manifest'
     required: false
-    default: -1
+    default: '-1'
   minor:
     description: 'Minor Version, defaults to value in manifest'
     required: false
-    default: -1
+    default: '-1'
   build:
     description: 'Build Number, usually use github.run_number'
     required: false
-    default: -1
+    default: '-1'
   revision:
-    description: 'Optional Revsion Number'
+    description: 'Optional Revision Number'
     required: false
-    default: -1
+    default: '-1'
+  prerelease:
+    description: 'Optional Prerelease value'
+    required: false
+    default: ''
+  commitSHA:
+    description: 'Optional commitSHA to save in PrivateData'
+    required: false
+    default: ''
 runs:
   using: 'composite'
   steps:
@@ -32,6 +40,8 @@ runs:
             -Minor ${{ inputs.minor }} `
             -Build ${{ inputs.build }} `
             -Revision ${{ inputs.revision }} `
+            -Prerelease ${{ inputs.prerelease }} `
+            -CommitSHA ${{ inputs.commitSHA }} `
             -Verbose
       shell: pwsh
 
