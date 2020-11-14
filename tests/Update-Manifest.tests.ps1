@@ -29,11 +29,12 @@ Describe "Tests Manifest Version" {
 
         $temp = "$(New-TemporaryFile).psd1"
         Copy-Item .\test.psd1 $temp
+        Update-ModuleManifest -Path $temp -ModuleVersion 9.8
 
         ..\Update-ManifestVersion.ps1 -ManifestPath $temp -Major 9 -Minor 8
 
         $manifest = Test-ModuleManifest -Path $temp -Verbose:$false
-        $manifest.Version | Should -Be ([Version]"9.8.0")
+        $manifest.Version | Should -Be ([Version]"9.8")
     }
 
     It "Sets only revision" {
@@ -68,5 +69,16 @@ Describe "Tests Manifest Version" {
 
         $manifest = Test-ModuleManifest -Path $temp -Verbose:$false
         $manifest.PrivateData.CommitSHA | Should -Be 75382ad59e8ec94b8f7b49be0961e3293bf8cb06
+    }
+
+    It "Sets the Prerelase" {
+
+        $temp = "$(New-TemporaryFile).psd1"
+        Copy-Item .\test.psd1 $temp
+
+        ..\Update-ManifestVersion.ps1 -ManifestPath $temp -Prerelease "alpha1"
+
+        $manifest = Test-ModuleManifest -Path $temp -Verbose:$false
+        $manifest.PrivateData.PSData.Prerelease | Should -Be 'alpha1'
     }
 }

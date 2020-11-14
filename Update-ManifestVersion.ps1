@@ -9,7 +9,7 @@ A thin wrapper over Update-ModuleManifest as a exercise in creating a GitHub Act
 The path to the existing psd1 file
 
 .PARAMETER Revision
-Revision number, not valid for SemVer.
+Revision number, not valid for SemVer, but in can be in PowerShell manifest
 
 .PARAMETER Build
 Build number.  If not supplied, used the one in the manifest
@@ -54,6 +54,7 @@ if ( $Revision -eq -1 )
 }
 if ( $Revision -eq -1 )
 {
+    # Manifest doesn't have revision
     $verFormat = "{0}.{1}.{2}"
 }
 
@@ -63,6 +64,7 @@ if ( $Build -eq -1 )
 }
 if ( $Build -eq -1 )
 {
+    # Manifest doesn't have build
     $verFormat = "{0}.{1}"
 }
 if ( $Minor -eq -1 )
