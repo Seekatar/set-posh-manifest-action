@@ -71,7 +71,7 @@ Describe "Tests Manifest Version" {
         $manifest.PrivateData.CommitSHA | Should -Be 75382ad59e8ec94b8f7b49be0961e3293bf8cb06
     }
 
-    It "Sets the Prerelase" {
+    It "Sets the Prerelease" {
 
         $temp = "$(New-TemporaryFile).psd1"
         Copy-Item .\test.psd1 $temp
@@ -80,5 +80,35 @@ Describe "Tests Manifest Version" {
 
         $manifest = Test-ModuleManifest -Path $temp -Verbose:$false
         $manifest.PrivateData.PSData.Prerelease | Should -Be 'alpha1'
+    }
+
+    It "Sets GitHub just Version" {
+
+        $temp = "$(New-TemporaryFile).psd1"
+        Copy-Item .\test.psd1 $temp
+
+        ..\Update-ManifestVersion.ps1 -ManifestPath $temp -GitHubRef 'refs/head/release/v1.2.3'
+
+        $manifest = Test-ModuleManifest -Path $temp -Verbose:$false
+        $manifest.Version | Should -Be ([Version]"1.2.3")
+    }
+    It "Sets GitHub just Version and prerelease" {
+
+        $temp = "$(New-TemporaryFile).psd1"
+        Copy-Item .\test.psd1 $temp
+
+        ..\Update-ManifestVersion.ps1 -ManifestPath $temp -GitHubRef 'refs/head/release/v1.2.3-alpha1'
+
+        $manifest = Test-ModuleManifest -Path $temp -Verbose:$false
+        $manifest.Version | Should -Be ([Version]"1.2.3")
+        $manifest.PrivateData.PSData.Prerelease | Should -Be 'alpha1'
+    }
+    It "Sets GitHub invalid" {
+
+        $temp = "$(New-TemporaryFile).psd1"
+        Copy-Item .\test.psd1 $temp
+
+
+        { ..\Update-ManifestVersion.ps1 -ManifestPath $temp -GitHubRef 'refs/head/release/vabced-alpha1' } | Should -Throw
     }
 }

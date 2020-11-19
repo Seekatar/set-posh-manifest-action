@@ -29,7 +29,7 @@ The doc for creating Actions is [here](https://docs.github.com/en/free-pro-team@
 To "publish" it you simply push to the repo and tag it
 
 ```powershell
-git tag -am "Description of this release" v1
+git tag -am "Description of this release" v1.1
 git push --follow-tags
 ```
 
