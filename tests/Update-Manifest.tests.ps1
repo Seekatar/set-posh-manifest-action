@@ -103,12 +103,23 @@ Describe "Tests Manifest Version" {
         $manifest.Version | Should -Be ([Version]"1.2.3")
         $manifest.PrivateData.PSData.Prerelease | Should -Be 'alpha1'
     }
+    It "Sets GitHub just Version and prerelease with dash and build" {
+
+        $temp = "$(New-TemporaryFile).psd1"
+        Copy-Item .\test.psd1 $temp
+
+        ..\Update-ManifestVersion.ps1 -ManifestPath $temp -GitHubRef 'refs/head/release/v1.2.3-alpha1+test123'
+
+        $manifest = Test-ModuleManifest -Path $temp -Verbose:$false
+        $manifest.Version | Should -Be ([Version]"1.2.3")
+        $manifest.PrivateData.PSData.Prerelease | Should -Be 'alpha1'
+    }
     It "Sets GitHub invalid" {
 
         $temp = "$(New-TemporaryFile).psd1"
         Copy-Item .\test.psd1 $temp
 
-
         { ..\Update-ManifestVersion.ps1 -ManifestPath $temp -GitHubRef 'refs/head/release/vabced-alpha1' } | Should -Throw
+        { ..\Update-ManifestVersion.ps1 -ManifestPath $temp -GitHubRef 'refs/head/release/v1.2.3-alpha1-test' } | Should -Throw
     }
 }

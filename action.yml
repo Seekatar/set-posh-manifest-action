@@ -29,20 +29,29 @@ inputs:
     description: 'Optional commitSHA to save in PrivateData'
     required: false
     default: ''
+  githubRef:
+    description: 'Instead of other parameters, use ref with version as last level'
+    required: false
+    default: ''
 runs:
   using: 'composite'
   steps:
     - run: |
-        echo "Build is ${{ inputs.build }}"
-        ${{ github.action_path }}/Update-ManifestVersion.ps1 `
-            -ManifestPath (Join-Path $env:GITHUB_WORKSPACE ${{ inputs.manifest-path }}) `
-            -Major ${{ inputs.major }} `
-            -Minor ${{ inputs.minor }} `
-            -Build ${{ inputs.build }} `
-            -Revision ${{ inputs.revision }} `
-            -Prerelease ${{ inputs.prerelease }} `
-            -CommitSHA ${{ inputs.commitSHA }} `
-            -Verbose
+        if ('${{ inputs.githubRef }}') {
+          ${{ github.action_path }}/Update-ManifestVersion.ps1 `
+              -ManifestPath (Join-Path $env:GITHUB_WORKSPACE ${{ inputs.manifest-path }}) `
+              -GitHubRef '${{ inputs.githubRef }}'
+              -CommitSHA '${{ inputs.commitSHA }}'
+        } else {
+          ${{ github.action_path }}/Update-ManifestVersion.ps1 `
+              -ManifestPath (Join-Path $env:GITHUB_WORKSPACE ${{ inputs.manifest-path }}) `
+              -Major ${{ inputs.major }} `
+              -Minor ${{ inputs.minor }} `
+              -Build ${{ inputs.build }} `
+              -Revision ${{ inputs.revision }} `
+              -Prerelease '${{ inputs.prerelease }}' `
+              -CommitSHA '${{ inputs.commitSHA }}'
+        }
       shell: pwsh
 
 branding:

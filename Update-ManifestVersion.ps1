@@ -55,7 +55,8 @@ Set-StrictMode -Version Latest
 $manifest = Test-ModuleManifest -Path $ManifestPath -Verbose:$false
 
 if ($GitHubRef) {
-    if ($GitHubRef -match ".*/v{0,1}(?<ver>\d\.\d\.\d)(?:-(?<prerelease>.*))?") {
+    if ($GitHubRef -match ".*/v{0,1}(?<ver>\d\.\d\.\d)(?:-(?<prerelease>[0-9a-z]+)(?<rest>.*))?" `
+        -and (!$matches['rest'] -or !$matches['rest'].StartsWith('-'))) {
         $newVersion = $matches['ver']
         $Prerelease = $matches['prerelease']
     } else {
