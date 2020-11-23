@@ -102,6 +102,12 @@ Describe "Tests Manifest Version" {
         $manifest = Test-ModuleManifest -Path $temp -Verbose:$false
         $manifest.Version | Should -Be ([Version]"1.2.3")
         $manifest.PrivateData.PSData.Prerelease | Should -Be 'alpha1'
+
+        ..\Update-ManifestVersion.ps1 -ManifestPath $temp -GitHubRef 'refs/head/release/v1.2.4'
+        $manifest = Test-ModuleManifest -Path $temp -Verbose:$false
+        $manifest.Version | Should -Be ([Version]"1.2.4")
+        Get-Member -Input $manifest.PrivateData.PSData -name Prerelease | Should -Be $null
+
     }
     It "Sets GitHub just Version and prerelease with dash and build" {
 

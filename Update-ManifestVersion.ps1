@@ -99,6 +99,9 @@ if ( $PSCmdlet.ShouldProcess($ManifestPath, "Set module manifest data"))
     $prevVerbose = $VerbosePreference
     $VerbosePreference = 'SilentlyContinue' # avoid Update-ModuleManifest dumping module load it may do
 
+    if (!$Prerelease) {
+        $Prerelease = ' ' # empty or null won't clear it, blank will
+    }
     $parms = @{
         Path = $ManifestPath
         ModuleVersion = $newVersion
