@@ -40,7 +40,7 @@ runs:
         if ('${{ inputs.githubRef }}') {
           ${{ github.action_path }}/Update-ManifestVersion.ps1 `
               -ManifestPath (Join-Path $env:GITHUB_WORKSPACE ${{ inputs.manifest-path }}) `
-              -GitHubRef '${{ inputs.githubRef }}'
+              -GitHubRef '${{ inputs.githubRef }}' `
               -CommitSHA '${{ inputs.commitSHA }}'
         } else {
           ${{ github.action_path }}/Update-ManifestVersion.ps1 `

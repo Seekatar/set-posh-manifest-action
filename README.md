@@ -48,8 +48,8 @@ The doc for creating Actions is [here](https://docs.github.com/en/free-pro-team@
 To "publish" it you push to the repo and tag it
 
 ```powershell
-git tag -am "Description of this release" v1.1
-git push --follow-tags
+git push --delete origin v1.2 # if needed
+git tag -am "Add githubRef" v1.2 && git push --follow-tags
 ```
 
 Then on the tag listings for the repo, click the far right `...` and click `Create Release` to release it into the marketplace.
