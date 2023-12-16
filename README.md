@@ -49,6 +49,7 @@ To "publish" it you push to the repo and tag it
 
 ```powershell
 git push --delete origin v1.2 # if needed
+git tag --delete v1.2
 git tag -am "Add githubRef" v1.2 && git push --follow-tags
 ```
 
